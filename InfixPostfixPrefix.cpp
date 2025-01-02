@@ -145,9 +145,3 @@ string infix_postfox(string s)
 
     return result;
 }
-
-int main()
-{
-    string an = "-+7*45+20";
-    cout << prefixEval(an);
-}

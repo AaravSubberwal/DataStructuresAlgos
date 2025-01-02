@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
+
 class stack_arr
 {
 private:
     int stackk[100];
     int top = -1;
+
 public:
     void push(int x)
     {
@@ -52,6 +54,7 @@ public:
         return top + 1;
     }
 };
+
 class node
 {
 public:
@@ -80,6 +83,7 @@ class stack_LL
 private:
     node *top;
     int n = 0;
+
 public:
     stack_LL()
     {
@@ -144,14 +148,7 @@ public:
     }
     bool isempty()
     {
-        if (top == nullptr)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return top == nullptr;
     }
 };
 
@@ -194,14 +191,7 @@ class queue_arr
     }
     bool isempty()
     {
-        if (front = -1 || front > back)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (front = -1 || front > back);
     }
 };
 
@@ -209,7 +199,7 @@ class queue_LL
 {
     node *front;
     node *back;
-    int n=0;
+    int n = 0;
     queue_LL()
     {
         front = nullptr;
@@ -226,38 +216,43 @@ class queue_LL
         else
         {
             back->next = new node(x);
-            back=back->next;
+            back = back->next;
         }
         n++;
     }
-    int pop(){
-        if (front == nullptr) {  
+    int pop()
+    {
+        if (front == nullptr)
+        {
             cerr << "Queue is empty" << endl;
-            return -1;  
+            return -1;
         }
-        node* temp = front;
+        node *temp = front;
         int toreturn = front->val;
         front = front->next;
-        if (front == nullptr) {  
+        if (front == nullptr)
+        {
             back = nullptr;
         }
         delete temp;
         n--;
         return toreturn;
     }
-    int peek(){
-        if (front == nullptr) {
+    int peek()
+    {
+        if (front == nullptr)
+        {
             cerr << "Queue is empty" << endl;
-            return -1;  
+            return -1;
         }
         return front->val;
     }
-    int size(){
+    int size()
+    {
         return n;
     }
-    bool isempty() {
+    bool isempty()
+    {
         return (front == nullptr);
     }
 };
-
-

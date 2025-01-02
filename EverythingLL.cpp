@@ -730,13 +730,3 @@ public:
         }
     }
 };
-
-int main()
-{
-    std::vector<int> a = {1, 2, 3, 4, 5, 6};
-
-    CDLL b(a);
-    b.remove(20);
-    b.printlist();
-    // std::cout<<;
-}
