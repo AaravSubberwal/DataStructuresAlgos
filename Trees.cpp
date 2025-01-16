@@ -93,6 +93,49 @@ public:
             parent->right = insertme;
         }
     }
+    void deleteit(int target)
+    {
+        node *current = root;
+        node *parent = nullptr;
+        while (current != nullptr && current->key != target)
+        {
+            parent = current;
+            if (current->key < target)
+            {
+                current = current->right;
+            }
+            else
+            {
+                current = current->left;
+            }
+        }
+        if (!current)
+            return;
+        if (!current->left && !current->right)
+        { // no children
+            if (!parent)
+            {
+                delete current;
+                root=nullptr;
+                return;
+            }
+            if (parent->left == current)
+            {
+                parent->left = nullptr;
+            }
+            else
+            {
+                parent->right = nullptr;
+            }
+            delete current;
+            return;
+        }
+        else if(!current->left || !current->right){
+            if(parent->left==current){
+
+            }
+        }
+    }
     bool recursive_search(int target)
     {
         return recursive_search_wrap(target, root);
