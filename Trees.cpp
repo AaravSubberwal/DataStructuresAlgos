@@ -111,12 +111,13 @@ public:
         }
         if (!current)
             return;
+
         if (!current->left && !current->right)
         { // no children
             if (!parent)
             {
                 delete current;
-                root=nullptr;
+                root = nullptr;
                 return;
             }
             if (parent->left == current)
@@ -130,18 +131,97 @@ public:
             delete current;
             return;
         }
-        else if(!current->left || !current->right){
-            if(parent->left==current){
-
+        else if (!current->left || !current->right) // one child
+        {
+            node *child = (current->left == nullptr) ? current->right : current->left;
+            if (!parent)
+            {
+                delete current;
+                root = nullptr;
+                return;
             }
+            if (parent->left == current)
+            {
+                parent->left = child;
+            }
+            else
+            {
+                parent->right = child;
+            }
+            delete current;
+            return;
+        }
+        else // 2 childs
+        {    // find succ
+            node *successor = current->right;
+            node *successorkaparent = current;
+            while (successor->left != nullptr)
+            {
+                successorkaparent = successor;
+                successor = successor->left;
+            }
+            current->key = successor->key;
+
+            // Delete the successor node
+            if (successorkaparent->left == successor)
+            {
+                successorkaparent->left = successor->right; // Successor can only have a right child
+            }
+            else
+            {
+                successorkaparent->right = successor->right;
+            }
+            delete successor;
         }
     }
     bool recursive_search(int target)
     {
         return recursive_search_wrap(target, root);
     }
-
+    void inorderTraversal()
+    {
+        inorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+    void preorderTraversal()
+    {
+        preorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+    void postorderTraversal()
+    {
+        postorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+    
 private:
+    void inorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        inorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        cout << iter->key << " ";          // Visit the current node.
+        inorderTraversalwrap(iter->right); // Traverse the right subtree.
+    }
+    void preorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        cout << iter->key << " ";          // Visit the current node.
+        preorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        preorderTraversalwrap(iter->right); // Traverse the right subtree.
+    }
+    void postorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        postorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        postorderTraversalwrap(iter->right); // Traverse the right subtree.
+        cout << iter->key << " ";          // Visit the current node.
+    }
     bool recursive_search_wrap(int target, node *n) // *********
     {
         if (n == nullptr)
