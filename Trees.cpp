@@ -18,10 +18,59 @@ public:
         key = data;
     }
 };
-class BST // A binary search tree has this property where the left leaf node is always smaller and right leaf node is always greater than the root node
+
+class BinaryTree
 {
 public:
     node *root;
+    void inorderTraversal()
+    {
+        inorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+    void preorderTraversal()
+    {
+        preorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+    void postorderTraversal()
+    {
+        postorderTraversalwrap(root); // Call the wrapper with the root node.
+    }
+
+private:
+    void inorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        inorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        cout << iter->key << " ";          // Visit the current node.
+        inorderTraversalwrap(iter->right); // Traverse the right subtree.
+    }
+    void preorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        cout << iter->key << " ";           // Visit the current node.
+        preorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        preorderTraversalwrap(iter->right); // Traverse the right subtree.
+    }
+    void postorderTraversalwrap(node *iter)
+    {
+        if (iter == nullptr)
+        { // Base case: If iter is null, return.
+            return;
+        }
+        postorderTraversalwrap(iter->left);  // Traverse the left subtree.
+        postorderTraversalwrap(iter->right); // Traverse the right subtree.
+        cout << iter->key << " ";            // Visit the current node.
+    }
+};
+class BST : BinaryTree // A binary search tree has this property where the left leaf node is always smaller and right leaf node is always greater than the root node
+{
+public:
     BST(int val)
     {
         root = new node(val);
@@ -109,12 +158,12 @@ public:
                 current = current->left;
             }
         }
-        if (!current)
+        if (!current) // element doesnt exist
             return;
 
         if (!current->left && !current->right)
-        { // no children
-            if (!parent)
+        {                // no children
+            if (!parent) // gotta delete the root
             {
                 delete current;
                 root = nullptr;
@@ -178,50 +227,8 @@ public:
     {
         return recursive_search_wrap(target, root);
     }
-    void inorderTraversal()
-    {
-        inorderTraversalwrap(root); // Call the wrapper with the root node.
-    }
-    void preorderTraversal()
-    {
-        preorderTraversalwrap(root); // Call the wrapper with the root node.
-    }
-    void postorderTraversal()
-    {
-        postorderTraversalwrap(root); // Call the wrapper with the root node.
-    }
-    
+
 private:
-    void inorderTraversalwrap(node *iter)
-    {
-        if (iter == nullptr)
-        { // Base case: If iter is null, return.
-            return;
-        }
-        inorderTraversalwrap(iter->left);  // Traverse the left subtree.
-        cout << iter->key << " ";          // Visit the current node.
-        inorderTraversalwrap(iter->right); // Traverse the right subtree.
-    }
-    void preorderTraversalwrap(node *iter)
-    {
-        if (iter == nullptr)
-        { // Base case: If iter is null, return.
-            return;
-        }
-        cout << iter->key << " ";          // Visit the current node.
-        preorderTraversalwrap(iter->left);  // Traverse the left subtree.
-        preorderTraversalwrap(iter->right); // Traverse the right subtree.
-    }
-    void postorderTraversalwrap(node *iter)
-    {
-        if (iter == nullptr)
-        { // Base case: If iter is null, return.
-            return;
-        }
-        postorderTraversalwrap(iter->left);  // Traverse the left subtree.
-        postorderTraversalwrap(iter->right); // Traverse the right subtree.
-        cout << iter->key << " ";          // Visit the current node.
-    }
     bool recursive_search_wrap(int target, node *n) // *********
     {
         if (n == nullptr)
